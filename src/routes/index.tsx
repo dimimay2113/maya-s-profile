@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, Linkedin, ArrowUpRight, Download, Menu, X } from "lucide-react";
-import headshot from "@/assets/maya-headshot.jpg";
+import headshotAsset from "@/assets/maya-headshot.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
