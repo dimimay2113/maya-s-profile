@@ -132,7 +132,7 @@ function Index() {
           <div className="order-1 md:order-2 md:col-span-5">
             <div className="border border-hairline">
               <img
-                src={headshot}
+                src={headshotAsset.url}
                 alt="Portrait of Maya Dimitrova"
                 width={896}
                 height={1152}
