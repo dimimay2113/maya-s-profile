@@ -416,7 +416,7 @@ function Index() {
 
           <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-2" style={{ background: "#5a5a35" }}>
             <a
-              href="mailto:maya.dimitrova@example.com"
+              href="mailto:flofkata@gmail.com"
               className="group flex items-center justify-between gap-6 bg-inverse-surface px-6 py-8 md:px-10"
             >
               <div className="flex items-center gap-5">
@@ -426,7 +426,7 @@ function Index() {
                     Email
                   </div>
                   <div className="mt-1 text-lg md:text-xl">
-                    maya.dimitrova@example.com
+                    flofkata@gmail.com
                   </div>
                 </div>
               </div>
