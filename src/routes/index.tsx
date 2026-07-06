@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, Linkedin, ArrowUpRight, Download, Menu, X } from "lucide-react";
-import headshot from "@/assets/maya-headshot.jpg";
+import headshotAsset from "@/assets/maya-headshot.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -132,7 +132,7 @@ function Index() {
           <div className="order-1 md:order-2 md:col-span-5">
             <div className="border border-hairline">
               <img
-                src={headshot}
+                src={headshotAsset.url}
                 alt="Portrait of Maya Dimitrova"
                 width={896}
                 height={1152}
