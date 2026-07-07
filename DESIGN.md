@@ -14,8 +14,8 @@ Finalized palette, as generated and approved (supersedes the earlier charcoal/bl
 | Role | Color | Notes |
 |------|-------|-------|
 | Background | `#fefbd0` | Pale warm cream/yellow |
-| Primary | `#7b7b03` (headings, key text) / `#626200` (tint variant) | Deep muted moss-gold — used for headings, high-emphasis text and backgrounds |
-| Secondary | `#697797` / `#505e7d` | Dusty slate blue — metadata, descriptions, supporting info |
+| Primary | `#626200` (default) / `#4d4d00` (hover/variant) | Deep muted moss-gold — used for headings, high-emphasis text and backgrounds. Darkened from the original Stitch export (`#7b7b03`/`#626200`) after a WCAG audit found the original at 4.26:1 against the cream background — fails AA (4.5:1) at every size except large headlines. |
+| Secondary | `#505e7d` (default) / `#404b64` (hover/variant) | Dusty slate blue — metadata, descriptions, supporting info. Same reason as Primary: original (`#697797`/`#505e7d`) measured 4.25:1, fails AA below headline size. |
 | Neutral / Borders | `#7a7956` (approx., sage-tinted) / `outline-variant #cac7b2` | Hairline dividers and structural boundaries |
 | Surface containers | `#f8f6cb` → `#e7e5bb` (low to highest) | Layered tonal surfaces for cards/sections |
 | On-surface (body text) | `#1d1d04` | Near-black with warm undertone |
@@ -75,7 +75,7 @@ Note: this structure **does not include a Professional Interests section** — t
 
 ## 5. Components
 - **Nav bar:** simple text links, label-md, uppercase, no underline by default; solid 1px bottom border in Primary color on hover.
-- **Buttons (primary):** background `#7b7b03`, text in background color, sharp corners, medium weight, padding 12px 24px (e.g. "Download CV").
+- **Buttons (primary):** background `#626200`, text in background color, sharp corners, medium weight, padding 12px 24px (e.g. "Download CV").
 - **Buttons (ghost/secondary):** transparent background, 1px border in Secondary color, text in Secondary color.
 - **Skill/credential tags:** small pill-shaped or sharp-cornered chips depending on context — proficiency level tags (Expert/Advanced/Certified) shown inline next to skill names.
 - **Cards (experience/history items):** no shadows or fills — separated by a top 1px border; date/category label in label-sm (Secondary color) above a Primary-colored title.
@@ -95,12 +95,13 @@ Note: this structure **does not include a Professional Interests section** — t
 - Two third-party embeds load client-side JS: Tally (contact form popup) and Cal.com (inline scheduler on `/book`) — both are additive widgets, not core to the page rendering.
 
 ## 8. Accessibility Notes
-- Verify color contrast for the cream background against moss-gold and slate-blue text — non-standard palettes need explicit WCAG AA checks (this palette has not yet been contrast-tested).
-- Semantic HTML (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
-- Alt text for the photo and any icons.
-- Keyboard-navigable nav links, visible focus state (solid 1px Primary-color border, per Stitch spec).
+- Color contrast formally checked (WCAG AA, calculated against the real rendered tokens, not estimated): Primary/Secondary text now pass at 6.10:1 / 6.15:1 against the cream background (was 4.25–4.26:1, failing AA below headline size — see Color Palette above). Body text, inverse-surface footer text, and surface-container text all independently pass (11.5–16:1). One known remaining minor gap: the `outline-variant` tag/divider border (`#cac7b2`) sits at 1.62:1 against cream — below the 3:1 non-text UI contrast minimum. Cosmetic only (no content is unreadable) but not yet fixed.
+- Semantic HTML (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`) and heading hierarchy (`h1` → `h2` → `h3`) confirmed correct throughout.
+- Alt text present on the photo.
+- Keyboard focus: a global `:focus-visible` outline (2px solid Primary, per the spec below) is implemented in `styles.css`, applied to every link/button/tabbable element site-wide.
+- Not yet run: an automated tool pass (Lighthouse/axe) — the checks above were done manually (contrast math against the real token values, code review for semantics/ARIA/focus). Worth a follow-up automated scan to catch anything manual review missed.
 
 ## 9. Known Gaps / Follow-ups
 - Placeholder content (name, headshot, copy) from the Stitch export needs to be swapped for Maya's real photo and finalized text before build.
-- Color contrast has not yet been formally checked against WCAG AA.
 - Mobile nav behavior not yet specified in detail — confirm during build.
+- `outline-variant` border contrast (1.62:1) — low priority, cosmetic.

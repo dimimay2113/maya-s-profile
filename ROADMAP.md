@@ -14,6 +14,12 @@
 - Added two Claude Code skills to this repo (`.claude/skills/`): `push-and-verify-deploy` (commit/push + confirm the live build actually changed, not just that push succeeded) and `update-docs-and-release-notes` (keep PRD/Roadmap/Design honest against real state).
 - PRD.md and DESIGN.md updated to reflect the booking feature and the actual tech stack (React/TanStack Start, not plain HTML — this was wrong since the docs were first written, not just from this session).
 
+## Session Log — 2026-07-07 (14:49–15:29)
+- Investigated the Cal.com "stuck loading" report further: initially traced to a browser extension (worked in a private window) and marked resolved, then reverted that conclusion after it was reproduced in a private window too — root cause narrowed to something on the Cal.com account/event-type side (most likely no Availability schedule on the event), not the embed code. Left open, parked per Maya's call.
+- Ran a real accessibility gap analysis: calculated WCAG contrast ratios against the site's actual color tokens (not estimated) and code-reviewed focus states, semantics, and ARIA. Found two real failures: Primary/Secondary text colors were below AA contrast (4.25–4.26:1, need 4.5:1) at every size except large headlines, and there was no visible keyboard focus indicator anywhere on the real page despite DESIGN.md specifying one.
+- Fixed both: swapped Primary/Secondary to darker AA-passing shades already present in the palette (6.10:1 / 6.15:1), and added a global `:focus-visible` outline in `styles.css` covering every interactive element site-wide. Verified live by confirming the new color value in the deployed CSS bundle.
+- DESIGN.md updated: Color Palette table reflects the new hex values and why they changed; Accessibility Notes section rewritten with the actual current status instead of "not yet checked."
+
 ## Phase 0 & 1 — Foundation (Done)
 - [x] PRD, Design doc, real content and photo, Atelier Expressive visual system approved
 - [x] Hosting decided and live: Vercel (maya-s-profile.vercel.app)
@@ -32,7 +38,8 @@ Blocked-on-decision items are marked — everything else is just build time.
 - [ ] **Smoke-test the live Tally popup** — submit a real message on the deployed site, confirm it arrives and reads well on mobile.
 - [ ] **Cal.com calendar still not rendering on `/book`** — still stuck loading, now confirmed in a private/incognito window too (rules out a browser-extension explanation). Needs real debugging, not just a browser-profile workaround.
 - [ ] **Availability/status line** *(needs Maya's wording)* — e.g. "open to new opportunities."
-- [ ] **Accessibility pass** — run Lighthouse/axe against the cream/moss-gold/slate-blue palette (never contrast-checked since Design doc v1).
+- [x] **Contrast + keyboard focus fixed** — WCAG AA contrast failures on Primary/Secondary text fixed (verified with real ratios, not estimated); global keyboard focus outline added site-wide.
+- [ ] **Run an automated accessibility scan (Lighthouse/axe)** — the contrast/focus fixes above came from manual review; an automated pass would catch anything that missed (e.g. `outline-variant` border contrast, still open — see DESIGN.md).
 
 ## Phase 2 — Polish (v1.1)
 - [ ] Visual (not just text) language-proficiency indicator
@@ -52,7 +59,7 @@ Blocked-on-decision items are marked — everything else is just build time.
 | MVP Live | Deployed, real content, responsive, no broken links | ✅ Done |
 | Shareable | Clean URL, share preview image | ✅ Done |
 | Trustworthy | Working PDF download, privacy note, no empty nav sections | ❌ Open — 3 items above |
-| Polished | Accessibility + performance checked, cross-browser tested | ❌ Open |
+| Polished | Accessibility + performance checked, cross-browser tested | ⚠️ Partial — contrast/focus fixed, automated a11y scan + performance + cross-browser still open |
 
 ## Decisions Waiting on Maya
 - Keep or formally cut Professional Interests?
