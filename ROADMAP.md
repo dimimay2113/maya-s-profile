@@ -13,6 +13,7 @@
 - Found and fixed a real bug: the Cal.com embed never rendered because it was missing the bootstrap "stub" `window.Cal` requires before its script loads — calls were silently dropped. Fixed to match Cal.com's documented integration pattern.
 - Added two Claude Code skills to this repo (`.claude/skills/`): `push-and-verify-deploy` (commit/push + confirm the live build actually changed, not just that push succeeded) and `update-docs-and-release-notes` (keep PRD/Roadmap/Design honest against real state).
 - PRD.md and DESIGN.md updated to reflect the booking feature and the actual tech stack (React/TanStack Start, not plain HTML — this was wrong since the docs were first written, not just from this session).
+- Confirmed in a private browser window: the Cal.com calendar renders correctly on `/book`. The earlier "stuck loading" report traced to a browser extension in a regular session, not the embed code.
 
 ## Phase 0 & 1 — Foundation (Done)
 - [x] PRD, Design doc, real content and photo, Atelier Expressive visual system approved
@@ -30,7 +31,7 @@ Blocked-on-decision items are marked — everything else is just build time.
 - [ ] **Recommendations & FAQ** *(needs Maya's input — quotes/questions)* — either populate with real content or remove from the nav.
 - [ ] **Surface contact earlier** — a lightweight "Get in touch" link near the hero, not just section 8.
 - [ ] **Smoke-test the live Tally popup** — submit a real message on the deployed site, confirm it arrives and reads well on mobile.
-- [ ] **Confirm the Cal.com calendar actually renders on `/book`** — the embed code is verified correct and deployed, but rendering in a real browser hasn't been visually confirmed yet (no browser tool access this session).
+- [x] **Confirm the Cal.com calendar actually renders on `/book`** — confirmed working in a private/incognito window. (It initially appeared stuck loading in a regular browser session — a browser extension, likely an ad/tracker blocker, was interfering with the Cal.com iframe; not a bug in our embed code.)
 - [ ] **Availability/status line** *(needs Maya's wording)* — e.g. "open to new opportunities."
 - [ ] **Accessibility pass** — run Lighthouse/axe against the cream/moss-gold/slate-blue palette (never contrast-checked since Design doc v1).
 
