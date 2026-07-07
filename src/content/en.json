@@ -140,29 +140,7 @@
     "number": "04",
     "label": "Recommendations",
     "heading": "Endorsements from managers and colleagues across EU institutions, US higher education, and telecom.",
-    "items": [
-      {
-        "quote": "Maya's introduction of Agile rituals and clear Power BI reporting transformed our data delivery pipelines. She manages complex vendor contracts with precision, ensuring institutional objectives are met without compromising on quality.",
-        "author": "Jean-Marc Laveaux",
-        "role": "Senior Program Manager (Contractor)",
-        "org": "European Commission DG",
-        "relationship": "Managed Maya directly"
-      },
-      {
-        "quote": "At Emory, Maya rebuilt our prospect pipeline database model from scratch. Her SQL-driven segmentation and commitment to clear SLAs greatly increased our team's fundraising efficiency. A structured and strategic leader.",
-        "author": "Sarah Jenkins",
-        "role": "Director of Development Operations",
-        "org": "Emory University",
-        "relationship": "Worked with Maya in the same team"
-      },
-      {
-        "quote": "Maya is an exceptional supervisor who coached junior associates into leadership roles while consistently exceeding operational KPIs. Her process improvements saved our teams significant overhead.",
-        "author": "Stanislav Ivanov",
-        "role": "Operations Director",
-        "org": "A1 Bulgaria (formerly Mobiltel)",
-        "relationship": "Supervised Maya"
-      }
-    ]
+    "items": []
   },
   "academic": {
     "number": "05",

@@ -399,31 +399,35 @@ function Index() {
       <section id="testimonials" className="border-b border-hairline bg-surface-2">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
           <SectionLabel number={testimonials.number} label={testimonials.label} />
-          <h2 className="mt-10 max-w-3xl text-[24px] font-medium leading-tight tracking-tight text-primary md:text-[32px] lg:text-[40px]">
-            {testimonials.heading}
-          </h2>
+          {testimonials.items.length > 0 && (
+            <>
+              <h2 className="mt-10 max-w-3xl text-[24px] font-medium leading-tight tracking-tight text-primary md:text-[32px] lg:text-[40px]">
+                {testimonials.heading}
+              </h2>
 
-          <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {testimonials.items.map((rec, i) => (
-              <div key={i} className="flex flex-col justify-between border border-hairline bg-surface-1 p-8 rounded-none">
-                <div>
-                  <span className="text-[64px] font-serif leading-none text-primary/20 select-none block h-6 -mt-4 -ml-2">“</span>
-                  <p className="text-[15px] leading-[1.6] text-foreground italic relative z-10">
-                    {rec.quote}
-                  </p>
-                </div>
-                <div className="mt-8 pt-6 border-t border-outline-variant">
-                  <div className="font-medium text-base text-foreground">{rec.author}</div>
-                  <div className="text-xs text-primary mt-1">{rec.role}</div>
-                  <div className="text-xs text-secondary mt-0.5">{rec.org}</div>
-                  <div className="mt-3 inline-flex items-center gap-1.5 label-eyebrow text-[10px] text-secondary bg-surface-2 border border-hairline px-2 py-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    {rec.relationship}
+              <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
+                {testimonials.items.map((rec, i) => (
+                  <div key={i} className="flex flex-col justify-between border border-hairline bg-surface-1 p-8 rounded-none">
+                    <div>
+                      <span className="text-[64px] font-serif leading-none text-primary/20 select-none block h-6 -mt-4 -ml-2">“</span>
+                      <p className="text-[15px] leading-[1.6] text-foreground italic relative z-10">
+                        {rec.quote}
+                      </p>
+                    </div>
+                    <div className="mt-8 pt-6 border-t border-outline-variant">
+                      <div className="font-medium text-base text-foreground">{rec.author}</div>
+                      <div className="text-xs text-primary mt-1">{rec.role}</div>
+                      <div className="text-xs text-secondary mt-0.5">{rec.org}</div>
+                      <div className="mt-3 inline-flex items-center gap-1.5 label-eyebrow text-[10px] text-secondary bg-surface-2 border border-hairline px-2 py-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        {rec.relationship}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </div>
       </section>
 
