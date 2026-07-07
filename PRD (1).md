@@ -35,7 +35,7 @@ A PDF resume is static, hard to browse on mobile, and forces every viewer into t
 | 4 | **Work Experience** | Career story presented cleanly — company, role, dates, key impact — but restructured for readability, not a copy-paste of the CV bullets | Must |
 | 5 | **Education & Certifications** | Degrees and certifications (CSM®, ITIL 4, ongoing AI academy) | Must |
 | 6 | **Professional Interests** | New section (not on a traditional CV) — topics/areas she's genuinely curious about or developing in (e.g. AI, data interoperability, Agile coaching) | Must |
-| 7 | **Contact** | Dedicated section: email (opens a Tally popup form — Name, Email, Content), LinkedIn, plain mailto link as a no-JS fallback | Must |
+| 7 | **Contact** | Dedicated section, three options: email (Tally popup form — Name, Email, Content), Book a call (dedicated `/book` page with an inline Cal.com scheduler), LinkedIn — plus a plain mailto link as a no-JS fallback | Must |
 | 8 | **Downloadable PDF** | Button to download a polished PDF version of the resume | Must |
 | 9 | **Responsive layout** | Fully usable on mobile — no horizontal scroll, readable font sizes, touch-friendly nav | Must |
 | 10 | **Language proficiency display** | Visual (not just text) indicator for English/Bulgarian/French/Spanish levels | Should |
@@ -61,8 +61,8 @@ A PDF resume is static, hard to browse on mobile, and forces every viewer into t
 - Page loads in under 2 seconds on a normal connection.
 
 ## 9. Constraints
-- Static site only (HTML/CSS/optional light JS) — no server required.
-- Should be deployable for free (e.g. GitHub Pages, Netlify, Vercel).
+- Built as a React/TanStack Start app (via Lovable) rather than the originally-planned plain HTML/CSS — same "no separate backend/database" spirit, but not a fully static site; a couple of features (Tally, Cal.com) load third-party embed scripts client-side.
+- Deployed for free on Vercel.
 - Domain/URL not yet decided — a free subdomain (e.g. GitHub Pages default) works for v1; a custom domain (e.g. mayadimitrova.com) is a possible upgrade.
 - Content should live in a single, easy-to-edit place so Maya can update it herself later without touching layout code.
 - Built as a beginner "vibe coding" project — code stays simple and readable over "clever."

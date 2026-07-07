@@ -64,9 +64,12 @@ Single scrolling page, sticky top nav, section-based cards on a shared backgroun
 ├─────────────────────────────────────┤
 │  CONTACT (dark inverse-surface)      │
 │  Large "Let's connect" headline      │
-│  Email · LinkedIn · copyright        │
+│  Email · Book a call · LinkedIn      │
+│  copyright                           │
 └─────────────────────────────────────┘
 ```
+
+A separate standalone page, `/book`, exists outside this single-scroll structure: light header with a "Back to profile" link, a "Scheduling" eyebrow + heading, and an inline Cal.com scheduler. It's reached only via the "Book a call" contact option, not from the main nav — the one-page narrative structure above is otherwise unchanged.
 
 Note: this structure **does not include a Professional Interests section** — that section was dropped from scope (see PRD, Decisions Made).
 
@@ -77,7 +80,7 @@ Note: this structure **does not include a Professional Interests section** — t
 - **Skill/credential tags:** small pill-shaped or sharp-cornered chips depending on context — proficiency level tags (Expert/Advanced/Certified) shown inline next to skill names.
 - **Cards (experience/history items):** no shadows or fills — separated by a top 1px border; date/category label in label-sm (Secondary color) above a Primary-colored title.
 - **Lists:** vertical, 16px padding between items, small dash (–) instead of bullet points.
-- **Contact links:** email and LinkedIn shown as simple text links with arrow icons, set against the dark inverse-surface closing panel — no contact form.
+- **Contact row:** three-column grid on the dark inverse-surface closing panel, same icon-label-value-arrow row pattern for all three — Email (opens a Tally popup form), Book a call (links to the standalone `/book` page), LinkedIn (external link) — plus a small plain mailto link beneath the grid as a no-JS fallback.
 - **Photo:** professional headshot, placed prominently in the Hero, sharp-cornered container (no rounding), consistent with the flat/architectural aesthetic.
 
 ## 6. Responsive Behavior
@@ -86,10 +89,10 @@ Note: this structure **does not include a Professional Interests section** — t
 - Spacing rhythm based on a 4px baseline unit; generous vertical spacing between major sections (~80px) to preserve the boutique/editorial feel.
 
 ## 7. Tech Approach
-- Plain **HTML + CSS** (Tailwind utility classes, based on the Stitch export) + minimal vanilla JS for nav scroll/active state.
-- All resume content stored in one place (directly in HTML for v1, or a small `data.js`/`data.json` file later) so updating content doesn't require touching layout code.
-- PDF download: static link to a pre-exported PDF file placed in the site's assets folder — no dynamic generation needed.
-- No frameworks beyond Tailwind needed for v1 — keeps it simple and beginner-friendly.
+- Built as a **React + TanStack Start** app (Tailwind utility classes, based on the Stitch export) rather than the originally-planned plain HTML/CSS — same "keep it simple" spirit, just a different starting scaffold (via Lovable).
+- All resume content lives in one typed file, `src/content/en.json`, so updating copy doesn't require touching layout/component code.
+- PDF download: not yet implemented — the nav button currently links to the Contact section rather than a real file (tracked in ROADMAP.md).
+- Two third-party embeds load client-side JS: Tally (contact form popup) and Cal.com (inline scheduler on `/book`) — both are additive widgets, not core to the page rendering.
 
 ## 8. Accessibility Notes
 - Verify color contrast for the cream background against moss-gold and slate-blue text — non-standard palettes need explicit WCAG AA checks (this palette has not yet been contrast-tested).
