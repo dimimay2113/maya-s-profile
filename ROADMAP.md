@@ -1,51 +1,54 @@
 # Roadmap — Maya Dimitrova Resume Website
 
-## Phase 0: Prep (Today)
-- [x] Write PRD
-- [x] Write Design doc
-- [x] Gather actual resume content (loaded from MayaDimitrova_Resume file)
-- [x] Extract professional photo (from existing resume PDF)
-- [x] Finalize visual design via Google Stitch (Atelier Expressive palette, approved as-is)
-- [x] Decide scope: Professional Interests section dropped for v1
-- [x] Choose hosting: Vercel (live at [maya-s-profile.vercel.app](https://maya-s-profile.vercel.app))
+## Session Log — 2026-07-07 (09:49–13:29)
+- Content pulled out of the page into a typed `content/en.json` module.
+- Added a Recommendations section; later emptied it rather than ship placeholder quotes.
+- Fixed Vercel deploy config.
+- Replaced the Formspree contact dialog with a Tally popup; fixed a broken LinkedIn link; added social share image (og:image/twitter:image).
+- Docs (PRD, Roadmap) synced to match the actual build.
 
-## Phase 1: MVP Build (v1)
-- [x] Set up project (built on TanStack Start/React + Tailwind via Lovable, not plain HTML/CSS — same end goal, different scaffold)
-- [x] Build page structure: Hero → Narrative → Expertise → Professional History → Recommendations → Academic + Credentials → FAQ → Contact
-- [x] Apply base styling: Atelier Expressive palette, Geist font, sharp 0px corners, spacing from Design doc
-- [x] Make it responsive (mobile nav collapses, `md:` breakpoints throughout)
-- [x] Add real content (moved into a typed `content/en.json`, not hardcoded — Maya's actual resume data)
-- [x] Add contact links (email → Tally popup form, LinkedIn, mailto fallback)
-- [ ] Test in at least 2 browsers
+## Phase 0 & 1 — Foundation (Done)
+- [x] PRD, Design doc, real content and photo, Atelier Expressive visual system approved
+- [x] Hosting decided and live: Vercel (maya-s-profile.vercel.app)
+- [x] Core page built: Hero → Narrative → Expertise → History → Recommendations → Academic/Credentials → FAQ → Contact
+- [x] Responsive layout, real content wired in, contact working (Tally + LinkedIn + mailto fallback)
+- [ ] Tested in at least 2 browsers — still open
 
-**Goal:** a working, deployed page with real content — "good enough to share." ✅ Done — site is live and shareable.
+## Now — Closing the Gaps (next session)
+Blocked-on-decision items are marked — everything else is just build time.
 
-## Phase 2: Polish (v1.1)
-- [ ] Add "Download Resume PDF" button (link to actual PDF) — button exists in the nav but currently just scrolls to Contact, no PDF wired up yet
-- [ ] Add subtle scroll animations (fade-in sections)
-- [x] Add sticky nav with active-section highlighting — sticky nav done; active-section highlighting not yet added
-- [x] Add favicon + page title/meta tags (for link previews when shared) — title, description, and now `og:image`/`twitter:image` (using the headshot) all in place
-- [ ] Accessibility pass (contrast check for the cream/moss-gold/slate-blue palette — not yet WCAG-verified, alt text, semantic tags)
-- [ ] Performance pass (compress images, minify CSS if needed)
-- [ ] Populate or remove the Recommendations and FAQ sections — both are live in the nav but currently empty; decide whether to add real testimonials/FAQ content or drop them from the nav
+- [ ] **Resolve Professional Interests** *(needs Maya's decision)* — PRD still lists it Must-have; Design doc already dropped it. Reconcile the docs one way or the other.
+- [ ] **Wire a real PDF download** — both "Download CV" buttons currently just scroll to Contact. Export real PDF, host it, link it.
+- [ ] **Add a privacy note** to the contact form area — one line on what happens to a submitted message.
+- [ ] **Recommendations & FAQ** *(needs Maya's input — quotes/questions)* — either populate with real content or remove from the nav.
+- [ ] **Surface contact earlier** — a lightweight "Get in touch" link near the hero, not just section 8.
+- [ ] **Smoke-test the live Tally popup** — submit a real message on the deployed site, confirm it arrives and reads well on mobile.
+- [ ] **Availability/status line** *(needs Maya's wording)* — e.g. "open to new opportunities."
+- [ ] **Accessibility pass** — run Lighthouse/axe against the cream/moss-gold/slate-blue palette (never contrast-checked since Design doc v1).
 
-## Phase 3: Nice-to-haves (v2, optional)
+## Phase 2 — Polish (v1.1)
+- [ ] Visual (not just text) language-proficiency indicator
+- [ ] Active-section highlighting in the sticky nav
+- [ ] Subtle scroll animations
+- [ ] Performance pass (image compression, CSS size)
+
+## Phase 3 — Nice-to-haves (v2)
 - [ ] Dark/light mode toggle
-- [ ] Projects section with case-study style cards
-- [ ] Simple analytics (e.g. Plausible or GoatCounter) to see if anyone's viewing it
-- [ ] Custom domain (e.g. yourname.com)
-- [ ] Small CMS-free content update flow (edit one `data.json`, no touching HTML)
+- [ ] Case-study style Projects section
+- [ ] Privacy-friendly analytics (Plausible/GoatCounter) *(needs Maya's opinion on whether this is even wanted)*
+- [ ] Custom domain *(needs Maya's decision)*
 
 ## Milestones / Definition of Done
 | Milestone | Definition of Done | Status |
-|-----------|---------------------|--------|
-| MVP Live | Page deployed with real content, responsive, no broken links | ✅ Done |
-| Shareable | Has a clean URL I'd feel comfortable putting on a business card / LinkedIn, with a share preview image | ✅ Done |
-| Polished | Passes a basic accessibility + performance check, has a working PDF download | Not yet — PDF download still just scrolls to Contact; accessibility/performance passes not run |
+|---|---|---|
+| MVP Live | Deployed, real content, responsive, no broken links | ✅ Done |
+| Shareable | Clean URL, share preview image | ✅ Done |
+| Trustworthy | Working PDF download, privacy note, no empty nav sections | ❌ Open — 3 items above |
+| Polished | Accessibility + performance checked, cross-browser tested | ❌ Open |
 
-## Notes for the Training
-Since this is a beginner vibe-coding session, the suggested order is:
-1. Finalize this Roadmap + Design doc (done).
-2. Ask your AI coding assistant to scaffold Phase 1 tasks one at a time — not all at once.
-3. Preview after each section is added, rather than building the whole page blind.
-4. Keep content and styling separate as early as possible — it makes later edits painless.
+## Decisions Waiting on Maya
+- Keep or formally cut Professional Interests?
+- Real testimonial quotes / FAQ content, or drop those nav items?
+- Availability/status line wording, if any?
+- Custom domain, or stay on the free Vercel subdomain?
+- Is analytics worth adding, or unnecessary overhead?
