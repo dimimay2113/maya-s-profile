@@ -7,26 +7,27 @@
 - [x] Extract professional photo (from existing resume PDF)
 - [x] Finalize visual design via Google Stitch (Atelier Expressive palette, approved as-is)
 - [x] Decide scope: Professional Interests section dropped for v1
-- [ ] Choose hosting: GitHub Pages / Netlify / Vercel
+- [x] Choose hosting: Vercel (live at [maya-s-profile.vercel.app](https://maya-s-profile.vercel.app))
 
 ## Phase 1: MVP Build (v1)
-- [ ] Set up project folder (`index.html`, `style.css`, optional `script.js`)
-- [ ] Build HTML structure: Hero → Narrative (About) → Expertise (Skills) → Professional History (Experience) → Academic + Credentials (Education) → Contact
-- [ ] Apply base styling: Stitch palette, Geist font, sharp corners, spacing from updated Design doc
-- [ ] Make it responsive (test at desktop, tablet, mobile widths)
-- [ ] Add real content (swap Stitch placeholder name/photo for Maya's actual content and headshot)
-- [ ] Add contact links (email, LinkedIn)
+- [x] Set up project (built on TanStack Start/React + Tailwind via Lovable, not plain HTML/CSS — same end goal, different scaffold)
+- [x] Build page structure: Hero → Narrative → Expertise → Professional History → Recommendations → Academic + Credentials → FAQ → Contact
+- [x] Apply base styling: Atelier Expressive palette, Geist font, sharp 0px corners, spacing from Design doc
+- [x] Make it responsive (mobile nav collapses, `md:` breakpoints throughout)
+- [x] Add real content (moved into a typed `content/en.json`, not hardcoded — Maya's actual resume data)
+- [x] Add contact links (email → Tally popup form, LinkedIn, mailto fallback)
 - [ ] Test in at least 2 browsers
 
-**Goal:** a working, deployed page with real content — "good enough to share."
+**Goal:** a working, deployed page with real content — "good enough to share." ✅ Done — site is live and shareable.
 
 ## Phase 2: Polish (v1.1)
-- [ ] Add "Download Resume PDF" button (link to actual PDF)
+- [ ] Add "Download Resume PDF" button (link to actual PDF) — button exists in the nav but currently just scrolls to Contact, no PDF wired up yet
 - [ ] Add subtle scroll animations (fade-in sections)
-- [ ] Add sticky nav with active-section highlighting
-- [ ] Add favicon + page title/meta tags (for link previews when shared)
+- [x] Add sticky nav with active-section highlighting — sticky nav done; active-section highlighting not yet added
+- [x] Add favicon + page title/meta tags (for link previews when shared) — title, description, and now `og:image`/`twitter:image` (using the headshot) all in place
 - [ ] Accessibility pass (contrast check for the cream/moss-gold/slate-blue palette — not yet WCAG-verified, alt text, semantic tags)
 - [ ] Performance pass (compress images, minify CSS if needed)
+- [ ] Populate or remove the Recommendations and FAQ sections — both are live in the nav but currently empty; decide whether to add real testimonials/FAQ content or drop them from the nav
 
 ## Phase 3: Nice-to-haves (v2, optional)
 - [ ] Dark/light mode toggle
@@ -36,11 +37,11 @@
 - [ ] Small CMS-free content update flow (edit one `data.json`, no touching HTML)
 
 ## Milestones / Definition of Done
-| Milestone | Definition of Done |
-|-----------|---------------------|
-| MVP Live | Page deployed with real content, responsive, no broken links |
-| Shareable | Has a clean URL I'd feel comfortable putting on a business card / LinkedIn |
-| Polished | Passes a basic accessibility + performance check, has PDF download |
+| Milestone | Definition of Done | Status |
+|-----------|---------------------|--------|
+| MVP Live | Page deployed with real content, responsive, no broken links | ✅ Done |
+| Shareable | Has a clean URL I'd feel comfortable putting on a business card / LinkedIn, with a share preview image | ✅ Done |
+| Polished | Passes a basic accessibility + performance check, has a working PDF download | Not yet — PDF download still just scrolls to Contact; accessibility/performance passes not run |
 
 ## Notes for the Training
 Since this is a beginner vibe-coding session, the suggested order is:
