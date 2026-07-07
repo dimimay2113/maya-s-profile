@@ -80,21 +80,21 @@
   --card-foreground: #1d1d04;
   --popover: #f8f6cb;
   --popover-foreground: #1d1d04;
-  --primary: #7b7b03;
-  --primary-variant: #626200;
+  --primary: #626200;
+  --primary-variant: #4d4d00;
   --primary-foreground: #fefbd0;
-  --secondary: #697797;
-  --secondary-variant: #505e7d;
+  --secondary: #505e7d;
+  --secondary-variant: #404b64;
   --secondary-foreground: #fefbd0;
   --muted: #f2f0c5;
-  --muted-foreground: #697797;
+  --muted-foreground: #505e7d;
   --accent: #edeac0;
   --accent-foreground: #1d1d04;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #fefbd0;
   --border: #7a7956;
   --input: #7a7956;
-  --ring: #7b7b03;
+  --ring: #626200;
   --hairline: #7a7956;
   --outline-variant: #cac7b2;
   --surface-1: #f8f6cb;
@@ -173,6 +173,13 @@
   ::selection {
     background: var(--primary);
     color: var(--primary-foreground);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
   }
 }
 
