@@ -2,6 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, Linkedin, ArrowUpRight, Download, Menu, X } from "lucide-react";
 import headshotAsset from "@/assets/maya-headshot.png.asset.json";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -11,6 +22,7 @@ const NAV = [
   { href: "#narrative", label: "Narrative" },
   { href: "#expertise", label: "Expertise" },
   { href: "#history", label: "History" },
+  { href: "#testimonials", label: "Recommendations" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -29,6 +41,158 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
       <span className="h-px flex-1 bg-hairline" />
       <span>{label}</span>
     </div>
+  );
+}
+
+function ContactFormPopup() {
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    setStatus("submitting");
+
+    try {
+      const response = await fetch("https://formspree.io/f/mnqeolzd", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => {
+          setOpen(false);
+          setStatus("idle");
+        }, 2500);
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button
+          className="group flex w-full items-center justify-between gap-6 bg-inverse-surface px-6 py-8 md:px-10 text-left cursor-pointer hover:bg-inverse-surface/90"
+        >
+          <div className="flex items-center gap-5">
+            <Mail className="h-6 w-6" strokeWidth={1.5} />
+            <div>
+              <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
+                Email
+              </div>
+              <div className="mt-1 text-lg md:text-xl text-inverse-foreground">
+                flofkata@gmail.com
+              </div>
+            </div>
+          </div>
+          <ArrowUpRight
+            className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+            strokeWidth={1.5}
+          />
+        </button>
+      </DialogTrigger>
+      <DialogContent className="rounded-none border border-hairline bg-surface-1 text-foreground max-w-md p-8">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-medium tracking-tight text-primary">
+            Send a Message
+          </DialogTitle>
+          <DialogDescription className="text-sm text-secondary mt-2">
+            Leave a message below and I will respond to your inquiry as soon as possible.
+          </DialogDescription>
+        </DialogHeader>
+
+        {status === "success" ? (
+          <div className="mt-6 flex flex-col items-center justify-center py-8 text-center bg-surface-2 border border-hairline">
+            <span className="text-lg font-medium text-primary">Message Sent!</span>
+            <p className="text-sm text-secondary mt-2">
+              Thank you for reaching out. I'll get back to you shortly.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="form-name" className="label-eyebrow text-xs text-secondary">
+                Your Name
+              </Label>
+              <Input
+                id="form-name"
+                type="text"
+                required
+                disabled={status === "submitting"}
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="rounded-none border-hairline bg-background text-foreground focus-visible:ring-primary focus-visible:border-primary"
+                placeholder="e.g. Jean-Marc Laveaux"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="form-email" className="label-eyebrow text-xs text-secondary">
+                Email Address
+              </Label>
+              <Input
+                id="form-email"
+                type="email"
+                required
+                disabled={status === "submitting"}
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="rounded-none border-hairline bg-background text-foreground focus-visible:ring-primary focus-visible:border-primary"
+                placeholder="name@organization.com"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="form-message" className="label-eyebrow text-xs text-secondary">
+                Message
+              </Label>
+              <Textarea
+                id="form-message"
+                required
+                rows={4}
+                disabled={status === "submitting"}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="rounded-none border-hairline bg-background text-foreground focus-visible:ring-primary focus-visible:border-primary"
+                placeholder="How can I assist you?"
+              />
+            </div>
+
+            {status === "error" && (
+              <div className="text-sm text-destructive bg-destructive/10 px-3 py-2 border border-destructive/20">
+                Something went wrong. Please try again or email directly.
+              </div>
+            )}
+
+            <div className="flex flex-col gap-3">
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="w-full bg-primary hover:bg-primary-variant text-primary-foreground py-3 font-medium transition-colors cursor-pointer label-eyebrow text-center disabled:opacity-50"
+              >
+                {status === "submitting" ? "Sending..." : "Submit Inquiry"}
+              </button>
+              <a
+                href="mailto:flofkata@gmail.com"
+                className="text-center text-xs text-secondary hover:text-primary transition-colors underline"
+              >
+                Or email directly: flofkata@gmail.com
+              </a>
+            </div>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -345,6 +509,59 @@ function Index() {
                 </div>
               </article>
             ))}
+        </div>
+      </section>
+
+      {/* Testimonials / Recommendations */}
+      <section id="testimonials" className="border-b border-hairline bg-surface-2">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
+          <SectionLabel number="04" label="Recommendations" />
+          <h2 className="mt-10 max-w-3xl text-[24px] font-medium leading-tight tracking-tight text-primary md:text-[32px] lg:text-[40px]">
+            Endorsements from managers and colleagues across EU institutions, US higher education, and telecom.
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {[
+              {
+                quote: "Maya's introduction of Agile rituals and clear Power BI reporting transformed our data delivery pipelines. She manages complex vendor contracts with precision, ensuring institutional objectives are met without compromising on quality.",
+                author: "Jean-Marc Laveaux",
+                role: "Senior Program Manager (Contractor)",
+                org: "European Commission DG",
+                relationship: "Managed Maya directly"
+              },
+              {
+                quote: "At Emory, Maya rebuilt our prospect pipeline database model from scratch. Her SQL-driven segmentation and commitment to clear SLAs greatly increased our team's fundraising efficiency. A structured and strategic leader.",
+                author: "Sarah Jenkins",
+                role: "Director of Development Operations",
+                org: "Emory University",
+                relationship: "Worked with Maya in the same team"
+              },
+              {
+                quote: "Maya is an exceptional supervisor who coached junior associates into leadership roles while consistently exceeding operational KPIs. Her process improvements saved our teams significant overhead.",
+                author: "Stanislav Ivanov",
+                role: "Operations Director",
+                org: "A1 Bulgaria (formerly Mobiltel)",
+                relationship: "Supervised Maya"
+              }
+            ].map((rec, i) => (
+              <div key={i} className="flex flex-col justify-between border border-hairline bg-surface-1 p-8 rounded-none">
+                <div>
+                  <span className="text-[64px] font-serif leading-none text-primary/20 select-none block h-6 -mt-4 -ml-2">“</span>
+                  <p className="text-[15px] leading-[1.6] text-foreground italic relative z-10">
+                    {rec.quote}
+                  </p>
+                </div>
+                <div className="mt-8 pt-6 border-t border-outline-variant">
+                  <div className="font-medium text-base text-foreground">{rec.author}</div>
+                  <div className="text-xs text-primary mt-1">{rec.role}</div>
+                  <div className="text-xs text-secondary mt-0.5">{rec.org}</div>
+                  <div className="mt-3 inline-flex items-center gap-1.5 label-eyebrow text-[10px] text-secondary bg-surface-2 border border-hairline px-2 py-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    {rec.relationship}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -353,7 +570,7 @@ function Index() {
       <section id="credentials" className="border-b border-hairline">
         <div className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-2">
           <div className="px-6 py-20 md:px-10 md:py-28 md:border-r md:border-hairline">
-            <SectionLabel number="04" label="Academic" />
+            <SectionLabel number="05" label="Academic" />
             <h2 className="mt-10 text-[24px] font-medium leading-tight tracking-tight text-primary md:text-[32px]">
               Degrees
             </h2>
@@ -377,7 +594,7 @@ function Index() {
 
           <div className="bg-inverse-surface px-6 py-20 text-inverse-foreground md:px-10 md:py-28">
             <div className="flex items-baseline gap-4 label-eyebrow" style={{ color: "#cac7b2" }}>
-              <span>05</span>
+              <span>06</span>
               <span className="h-px flex-1" style={{ background: "#5a5a35" }} />
               <span>Credentials</span>
             </div>
@@ -411,7 +628,7 @@ function Index() {
       <section id="contact" className="bg-inverse-surface text-inverse-foreground">
         <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-36">
           <div className="flex items-baseline gap-4 label-eyebrow" style={{ color: "#cac7b2" }}>
-            <span>06</span>
+            <span>07</span>
             <span className="h-px flex-1" style={{ background: "#5a5a35" }} />
             <span>Contact</span>
           </div>
@@ -423,26 +640,7 @@ function Index() {
           </h2>
 
           <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-2" style={{ background: "#5a5a35" }}>
-            <a
-              href="mailto:flofkata@gmail.com"
-              className="group flex items-center justify-between gap-6 bg-inverse-surface px-6 py-8 md:px-10"
-            >
-              <div className="flex items-center gap-5">
-                <Mail className="h-6 w-6" strokeWidth={1.5} />
-                <div>
-                  <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
-                    Email
-                  </div>
-                  <div className="mt-1 text-lg md:text-xl">
-                    flofkata@gmail.com
-                  </div>
-                </div>
-              </div>
-              <ArrowUpRight
-                className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
-                strokeWidth={1.5}
-              />
-            </a>
+            <ContactFormPopup />
             <a
               href="https://www.linkedin.com/"
               target="_blank"
