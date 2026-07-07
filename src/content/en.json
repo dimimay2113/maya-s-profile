@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "brand": "DIMITROVA.MD",
+    "eyebrow": "Profile — MMXXVI",
+    "downloadCvLabel": "Download CV"
+  },
+  "nav": [
+    { "href": "#narrative", "label": "Narrative" },
+    { "href": "#expertise", "label": "Expertise" },
+    { "href": "#history", "label": "History" },
+    { "href": "#testimonials", "label": "Recommendations" },
+    { "href": "#faq", "label": "FAQ" },
+    { "href": "#contact", "label": "Contact" }
+  ],
+  "hero": {
+    "name": ["Maya", "Dimitrova"],
+    "tagline": "IT Project Officer, Luxembourg. Delivering programmes at the intersection of public institutions, higher education and telecommunications.",
+    "credentials": "MBA · MMIS · CSM®",
+    "pills": [
+      "CSM®",
+      "ITIL 4 Foundation",
+      "ITIL 4 HVIT",
+      "ITIL 4 DSV",
+      "Agile Scrum",
+      "Power BI",
+      "SQL"
+    ],
+    "photo": {
+      "alt": "Portrait of Maya Dimitrova",
+      "plate": "Plate 01",
+      "location": "Luxembourg"
+    }
+  },
+  "narrative": {
+    "number": "01",
+    "label": "The Narrative",
+    "heading": "A project practice built across three worlds — European institutions, American academia and European telecom.",
+    "paragraphs": [
+      "For the past two decades my work has moved between very different operating cultures. In each one, the constant has been the same discipline: translating strategy into delivery, and delivery into evidence. Whether inside a Directorate-General in Luxembourg, a research university in Atlanta or a national mobile operator in Sofia, the mandate has always been to keep complex programmes moving without losing their intent.",
+      "I lead with quiet structure — clear sprint cadence, honest stakeholder conversations, budgets that behave, dashboards that are actually read. My education (MBA, MSc Management Information Systems, MSc Marketing) and certifications (CSM®, three ITIL 4 credentials) sit underneath that: a toolkit, not a badge collection."
+    ]
+  },
+  "expertise": {
+    "number": "02",
+    "label": "The Expertise",
+    "heading": "Three columns of practice, held together by the same taste for structure.",
+    "columns": [
+      {
+        "title": "Methodology",
+        "items": [
+          ["Agile Scrum", "Expert"],
+          ["Kanban", "Advanced"],
+          ["Sprint planning & retros", "Expert"],
+          ["ITIL 4 service management", "Certified"],
+          ["Waterfall for regulated delivery", "Advanced"]
+        ]
+      },
+      {
+        "title": "Leadership",
+        "items": [
+          ["Stakeholder management", "Expert"],
+          ["Cross-functional coordination", "Expert"],
+          ["Budget & vendor control", "Advanced"],
+          ["Team supervision", "Advanced"],
+          ["Executive reporting", "Advanced"]
+        ]
+      },
+      {
+        "title": "Tools & Stack",
+        "items": [
+          ["SQL", "Advanced"],
+          ["SDMX", "Advanced"],
+          ["Atlassian Suite (Jira, Confluence)", "Expert"],
+          ["MS Project & MS 365", "Advanced"]
+        ]
+      },
+      {
+        "title": "Languages",
+        "items": [
+          ["English", "Fluent"],
+          ["Bulgarian", "Native"],
+          ["Russian", "Intermediate"],
+          ["Spanish", "Beginner"]
+        ]
+      }
+    ]
+  },
+  "history": {
+    "number": "03",
+    "label": "Professional History",
+    "heading": "Twenty years of delivery, in reverse.",
+    "jobs": [
+      {
+        "org": "European Commission",
+        "place": "Luxembourg",
+        "role": "IT Project Officer",
+        "dates": "2021 — Present",
+        "bullets": [
+          "Coordinate delivery of institutional statistical IT projects, aligning business owners, developers and external contractors against multi-year roadmaps.",
+          "Introduced Agile ceremonies and Power BI reporting that gave management a shared, near-real-time view of scope, risk and burn."
+        ],
+        "tags": ["Agile", "SDMX", "Vendor management"]
+      },
+      {
+        "org": "Emory University",
+        "place": "Atlanta, USA",
+        "role": "Associate Director, Prospect Management",
+        "dates": "2019 — 2021",
+        "bullets": [
+          "Led a team responsible for the prospect pipeline underpinning a multi-billion-dollar comprehensive campaign.",
+          "Rebuilt the operating model around SQL-driven segmentation and clear service SLAs with front-line fundraisers."
+        ],
+        "tags": ["Team leadership", "SQL", "Power BI", "Data operations"]
+      },
+      {
+        "org": "Emory University",
+        "place": "Atlanta, USA",
+        "role": "Prospect Management Analyst",
+        "dates": "2016 — 2018",
+        "bullets": [
+          "Designed analytical products that turned donor and alumni data into actionable prospect portfolios.",
+          "Partnered with development officers to translate data findings into campaign strategy."
+        ],
+        "tags": ["Analytics", "Power BI", "Reporting", "Higher education"]
+      },
+      {
+        "org": "Mobiltel EAD (A1 Bulgaria)",
+        "place": "Sofia, Bulgaria",
+        "role": "Team Leader / Supervisor",
+        "dates": "2005 — 2012",
+        "bullets": [
+          "Supervised a customer-facing operations team for a leading national mobile operator, owning KPIs, scheduling and quality.",
+          "Coached team members into senior positions and rolled out process improvements adopted across sister teams."
+        ],
+        "tags": ["Operations", "Telecom", "People management"]
+      }
+    ]
+  },
+  "testimonials": {
+    "number": "04",
+    "label": "Recommendations",
+    "heading": "Endorsements from managers and colleagues across EU institutions, US higher education, and telecom.",
+    "items": [
+      {
+        "quote": "Maya's introduction of Agile rituals and clear Power BI reporting transformed our data delivery pipelines. She manages complex vendor contracts with precision, ensuring institutional objectives are met without compromising on quality.",
+        "author": "Jean-Marc Laveaux",
+        "role": "Senior Program Manager (Contractor)",
+        "org": "European Commission DG",
+        "relationship": "Managed Maya directly"
+      },
+      {
+        "quote": "At Emory, Maya rebuilt our prospect pipeline database model from scratch. Her SQL-driven segmentation and commitment to clear SLAs greatly increased our team's fundraising efficiency. A structured and strategic leader.",
+        "author": "Sarah Jenkins",
+        "role": "Director of Development Operations",
+        "org": "Emory University",
+        "relationship": "Worked with Maya in the same team"
+      },
+      {
+        "quote": "Maya is an exceptional supervisor who coached junior associates into leadership roles while consistently exceeding operational KPIs. Her process improvements saved our teams significant overhead.",
+        "author": "Stanislav Ivanov",
+        "role": "Operations Director",
+        "org": "A1 Bulgaria (formerly Mobiltel)",
+        "relationship": "Supervised Maya"
+      }
+    ]
+  },
+  "academic": {
+    "number": "05",
+    "label": "Academic",
+    "heading": "Degrees",
+    "degrees": [
+      ["MSc Management Information Systems", "MMIS"],
+      ["Master of Business Administration", "MBA"],
+      ["MSc Marketing", "Postgraduate"],
+      ["BSc Marketing", "Undergraduate"]
+    ]
+  },
+  "credentials": {
+    "number": "06",
+    "label": "Credentials",
+    "heading": "Certifications",
+    "items": [
+      ["Certified Scrum Master", "CSM®"],
+      ["ITIL 4 Foundation", "Foundation"],
+      ["ITIL 4 Specialist", "High-Velocity IT"],
+      ["ITIL 4 Specialist", "Drive Stakeholder Value"]
+    ]
+  },
+  "faq": {
+    "number": "07",
+    "label": "FAQ",
+    "items": []
+  },
+  "contact": {
+    "number": "08",
+    "label": "Contact",
+    "heading": ["Let's", "connect."],
+    "email": {
+      "label": "Email",
+      "value": "flofkata@gmail.com",
+      "href": "mailto:flofkata@gmail.com",
+      "formEndpoint": "https://formspree.io/f/mnqeolzd",
+      "formTitle": "Send a Message",
+      "formDescription": "Leave a message below and I will respond to your inquiry as soon as possible.",
+      "successTitle": "Message Sent!",
+      "successBody": "Thank you for reaching out. I'll get back to you shortly.",
+      "fields": {
+        "name": { "label": "Your Name", "placeholder": "e.g. Jean-Marc Laveaux" },
+        "email": { "label": "Email Address", "placeholder": "name@organization.com" },
+        "message": { "label": "Message", "placeholder": "How can I assist you?" }
+      },
+      "submitLabel": "Submit Inquiry",
+      "submittingLabel": "Sending...",
+      "errorMessage": "Something went wrong. Please try again or email directly.",
+      "directEmailPrefix": "Or email directly:"
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "value": "linkedin.com/in/maya-dimitrova",
+      "href": "https://www.linkedin.com/"
+    },
+    "footer": {
+      "copyright": "© MMXXVI Maya Dimitrova — Luxembourg",
+      "tagline": "Designed & set in Geist"
+    }
+  }
+}
