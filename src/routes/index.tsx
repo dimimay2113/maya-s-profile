@@ -215,11 +215,19 @@ function Index() {
               {
                 title: "Tools & Stack",
                 items: [
-                  ["Power BI", "Advanced"],
                   ["SQL", "Advanced"],
                   ["SDMX", "Advanced"],
                   ["Atlassian Suite (Jira, Confluence)", "Expert"],
                   ["MS Project & MS 365", "Advanced"],
+                ],
+              },
+              {
+                title: "Languages",
+                items: [
+                  ["English", "Fluent"],
+                  ["Bulgarian", "Native"],
+                  ["Russian", "Intermediate"],
+                  ["Spanish", "Beginner"],
                 ],
               },
             ].map((col) => (
@@ -265,7 +273,7 @@ function Index() {
                   "Coordinate delivery of institutional statistical IT projects, aligning business owners, developers and external contractors against multi-year roadmaps.",
                   "Introduced Agile ceremonies and Power BI reporting that gave management a shared, near-real-time view of scope, risk and burn.",
                 ],
-                tags: ["Agile", "SDMX", "Power BI", "Vendor management"],
+                tags: ["Agile", "SDMX", "Vendor management"],
               },
               {
                 org: "Emory University",
@@ -276,7 +284,7 @@ function Index() {
                   "Led a team responsible for the prospect pipeline underpinning a multi-billion-dollar comprehensive campaign.",
                   "Rebuilt the operating model around SQL-driven segmentation and clear service SLAs with front-line fundraisers.",
                 ],
-                tags: ["Team leadership", "SQL", "Data operations"],
+                tags: ["Team leadership", "SQL", "Power BI", "Data operations"],
               },
               {
                 org: "Emory University",
@@ -287,7 +295,7 @@ function Index() {
                   "Designed analytical products that turned donor and alumni data into actionable prospect portfolios.",
                   "Partnered with development officers to translate data findings into campaign strategy.",
                 ],
-                tags: ["Analytics", "Reporting", "Higher education"],
+                tags: ["Analytics", "Power BI", "Reporting", "Higher education"],
               },
               {
                 org: "Mobiltel EAD (A1 Bulgaria)",
