@@ -18,8 +18,35 @@ export const Route = createFileRoute("/book")({
 
 declare global {
   interface Window {
-    Cal?: (...args: unknown[]) => void;
+    Cal?: {
+      (...args: unknown[]): void;
+      loaded?: boolean;
+      q?: unknown[][];
+    };
   }
+}
+
+// Cal.com's documented bootstrap: installs `window.Cal` as a queueing stub
+// before the real embed script loads, so calls made immediately below are
+// queued and replayed once app.cal.com/embed/embed.js finishes loading.
+// Calling Cal(...) directly in a script.onload handler (without this stub)
+// silently does nothing — the real script expects this shape to already exist.
+// (Namespaced init — Cal("init", "someNamespace", {...}) — is intentionally
+// not handled here since this page only ever makes single, unnamespaced calls.)
+function loadCalEmbed() {
+  if (window.Cal) return;
+  const globalCal: Window["Cal"] = function (...args: unknown[]) {
+    const cal = window.Cal!;
+    if (!cal.loaded) {
+      cal.q = cal.q ?? [];
+      const script = document.createElement("script");
+      script.src = "https://app.cal.com/embed/embed.js";
+      document.head.appendChild(script);
+      cal.loaded = true;
+    }
+    cal.q!.push(args);
+  };
+  window.Cal = globalCal;
 }
 
 function BookCall() {
@@ -27,29 +54,15 @@ function BookCall() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const initEmbed = () => {
-      const Cal = window.Cal;
-      if (!Cal || !containerRef.current) return;
-      Cal("init", { origin: "https://cal.com" });
-      Cal("inline", {
-        elementOrSelector: containerRef.current,
-        calLink: bookCall.calLink,
-        config: { layout: "month_view" },
-      });
-    };
+    if (!containerRef.current) return;
 
-    const existing = document.getElementById("cal-embed-script");
-    if (existing) {
-      initEmbed();
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.id = "cal-embed-script";
-    script.src = "https://app.cal.com/embed/embed.js";
-    script.async = true;
-    script.onload = initEmbed;
-    document.head.appendChild(script);
+    loadCalEmbed();
+    window.Cal!("init", { origin: "https://cal.com" });
+    window.Cal!("inline", {
+      elementOrSelector: containerRef.current,
+      calLink: bookCall.calLink,
+      config: { layout: "month_view" },
+    });
   }, [bookCall.calLink]);
 
   return (
