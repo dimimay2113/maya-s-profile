@@ -177,25 +177,12 @@
       "label": "Email",
       "value": "flofkata@gmail.com",
       "href": "mailto:flofkata@gmail.com",
-      "formEndpoint": "https://formspree.io/f/mnqeolzd",
-      "formTitle": "Send a Message",
-      "formDescription": "Leave a message below and I will respond to your inquiry as soon as possible.",
-      "successTitle": "Message Sent!",
-      "successBody": "Thank you for reaching out. I'll get back to you shortly.",
-      "fields": {
-        "name": { "label": "Your Name", "placeholder": "e.g. Jean-Marc Laveaux" },
-        "email": { "label": "Email Address", "placeholder": "name@organization.com" },
-        "message": { "label": "Message", "placeholder": "How can I assist you?" }
-      },
-      "submitLabel": "Submit Inquiry",
-      "submittingLabel": "Sending...",
-      "errorMessage": "Something went wrong. Please try again or email directly.",
-      "directEmailPrefix": "Or email directly:"
+      "tallyFormId": "REPLACE_WITH_TALLY_FORM_ID"
     },
     "linkedin": {
       "label": "LinkedIn",
       "value": "linkedin.com/in/maya-dimitrova",
-      "href": "https://www.linkedin.com/"
+      "href": "https://www.linkedin.com/in/maya-dimitrova"
     },
     "footer": {
       "copyright": "© MMXXVI Maya Dimitrova — Luxembourg",

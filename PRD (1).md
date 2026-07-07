@@ -35,14 +35,14 @@ A PDF resume is static, hard to browse on mobile, and forces every viewer into t
 | 4 | **Work Experience** | Career story presented cleanly — company, role, dates, key impact — but restructured for readability, not a copy-paste of the CV bullets | Must |
 | 5 | **Education & Certifications** | Degrees and certifications (CSM®, ITIL 4, ongoing AI academy) | Must |
 | 6 | **Professional Interests** | New section (not on a traditional CV) — topics/areas she's genuinely curious about or developing in (e.g. AI, data interoperability, Agile coaching) | Must |
-| 7 | **Contact** | Dedicated page or clearly separated section: email, phone, location (Luxembourg), possibly a simple contact form or mailto link | Must |
+| 7 | **Contact** | Dedicated section: email (opens a Tally popup form — Name, Email, Content), LinkedIn, plain mailto link as a no-JS fallback | Must |
 | 8 | **Downloadable PDF** | Button to download a polished PDF version of the resume | Must |
 | 9 | **Responsive layout** | Fully usable on mobile — no horizontal scroll, readable font sizes, touch-friendly nav | Must |
 | 10 | **Language proficiency display** | Visual (not just text) indicator for English/Bulgarian/French/Spanish levels | Should |
 | 11 | **Photo treatment** | Professional but approachable — consistent with "corporate yet minimal" tone | Must |
 | 12 | **Testimonial/recommendation** | Short quote from a former manager or colleague — reinforces credibility, reinforces "not a traditional CV" | Should |
 | 13 | **Availability/status line** | Subtle signal such as "open to new opportunities" or "currently at X" — optional, tone-dependent | Should |
-| 14 | **SEO basics** | Page title, meta description, so the site is findable via search (only needed if not sharing the link directly) | Should |
+| 14 | **SEO basics** | Page title, meta description, Open Graph/Twitter share image so links posted to LinkedIn/email render a preview card instead of blank text | Should |
 | 15 | **Privacy note** | One line covering what happens to a visitor's info if they use the contact form/email — a "corporate yet minimal" professionalism signal for a European audience | Should |
 | 16 | **Analytics** | Simple, privacy-friendly page-view tracking (e.g. Plausible or GoatCounter) to know if the site is being viewed | Could |
 | 17 | Dark/light mode toggle | | Could |
@@ -69,8 +69,8 @@ A PDF resume is static, hard to browse on mobile, and forces every viewer into t
 
 ## 10. Open Questions
 - What should go in "Professional Interests" — purely topical (e.g. AI, data standards, Agile coaching) or does she want to include personal interests too (hobbies) for a more rounded picture?
-- Contact page: simple mailto/phone/location listing, or an actual contact form (needs a form backend service like Formspree since this is a static site)?
-- Final hosting choice — GitHub Pages vs Netlify vs Vercel?
+- ~~Contact page: simple mailto/phone/location listing, or an actual contact form?~~ Decided: Tally popup form (Name, Email, Content), triggered from the same email row, with a plain mailto link kept alongside as a fallback.
+- Final hosting choice — GitHub Pages vs Netlify vs Vercel? Decided: Vercel (live at maya-s-profile.vercel.app).
 - Does she have a professional photo ready, or does that need to be sourced/taken?
 - Is there a former manager/colleague willing to give a short quote for the testimonial section, or should this be dropped for v1?
 - Does she want an availability/status line (e.g. "open to new opportunities"), and if so, what should it say?

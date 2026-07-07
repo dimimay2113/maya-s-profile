@@ -11,6 +11,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import headshotAsset from "../assets/maya-headshot.png.asset.json";
+
+const SITE_URL = "https://maya-s-profile.vercel.app";
+const ogImageUrl = `${SITE_URL}${headshotAsset.url}`;
 
 function NotFoundComponent() {
   return (
@@ -83,7 +87,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Maya Dimitrova — IT Project Officer, Luxembourg" },
       { property: "og:description", content: "MBA, MMIS, CSM®. IT Project Officer with experience across EU institutions, US higher education, and telecom." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: ogImageUrl },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: ogImageUrl },
     ],
     links: [
       {
@@ -95,6 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" },
     ],
+    scripts: [{ src: "https://tally.so/widgets/embed.js", async: true }],
   }),
   shellComponent: RootShell,
   component: RootComponent,

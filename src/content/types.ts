@@ -96,29 +96,11 @@ export interface FaqContent {
   items: FaqItem[];
 }
 
-export interface ContactEmailField {
-  label: string;
-  placeholder: string;
-}
-
 export interface ContactEmail {
   label: string;
   value: string;
   href: string;
-  formEndpoint: string;
-  formTitle: string;
-  formDescription: string;
-  successTitle: string;
-  successBody: string;
-  fields: {
-    name: ContactEmailField;
-    email: ContactEmailField;
-    message: ContactEmailField;
-  };
-  submitLabel: string;
-  submittingLabel: string;
-  errorMessage: string;
-  directEmailPrefix: string;
+  tallyFormId: string;
 }
 
 export interface ContactLinkedin {

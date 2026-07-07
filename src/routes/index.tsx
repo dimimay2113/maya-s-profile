@@ -2,17 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, Linkedin, ArrowUpRight, Download, Menu, X } from "lucide-react";
 import headshotAsset from "@/assets/maya-headshot.png.asset.json";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import content from "@/content";
 
 export const Route = createFileRoute("/")({
@@ -37,153 +26,32 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
   );
 }
 
-function ContactFormPopup({ email }: { email: typeof content.contact.email }) {
-  const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    setStatus("submitting");
-
-    try {
-      const response = await fetch(email.formEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => {
-          setOpen(false);
-          setStatus("idle");
-        }, 2500);
-      } else {
-        setStatus("error");
-      }
-    } catch (err) {
-      setStatus("error");
-    }
-  };
-
+function ContactFormTrigger({ email }: { email: typeof content.contact.email }) {
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button
-          className="group flex w-full items-center justify-between gap-6 bg-inverse-surface px-6 py-8 md:px-10 text-left cursor-pointer hover:bg-inverse-surface/90"
-        >
-          <div className="flex items-center gap-5">
-            <Mail className="h-6 w-6" strokeWidth={1.5} />
-            <div>
-              <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
-                {email.label}
-              </div>
-              <div className="mt-1 text-lg md:text-xl text-inverse-foreground">
-                {email.value}
-              </div>
-            </div>
+    <button
+      type="button"
+      data-tally-open={email.tallyFormId}
+      data-tally-layout="modal"
+      data-tally-width="420"
+      data-tally-overlay="1"
+      className="group flex w-full items-center justify-between gap-6 bg-inverse-surface px-6 py-8 md:px-10 text-left cursor-pointer hover:bg-inverse-surface/90"
+    >
+      <div className="flex items-center gap-5">
+        <Mail className="h-6 w-6" strokeWidth={1.5} />
+        <div>
+          <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
+            {email.label}
           </div>
-          <ArrowUpRight
-            className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
-            strokeWidth={1.5}
-          />
-        </button>
-      </DialogTrigger>
-      <DialogContent className="rounded-none border border-hairline bg-surface-1 text-foreground max-w-md p-8">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-medium tracking-tight text-primary">
-            {email.formTitle}
-          </DialogTitle>
-          <DialogDescription className="text-sm text-secondary mt-2">
-            {email.formDescription}
-          </DialogDescription>
-        </DialogHeader>
-
-        {status === "success" ? (
-          <div className="mt-6 flex flex-col items-center justify-center py-8 text-center bg-surface-2 border border-hairline">
-            <span className="text-lg font-medium text-primary">{email.successTitle}</span>
-            <p className="text-sm text-secondary mt-2">{email.successBody}</p>
+          <div className="mt-1 text-lg md:text-xl text-inverse-foreground">
+            {email.value}
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-            <div className="space-y-2">
-              <Label htmlFor="form-name" className="label-eyebrow text-xs text-secondary">
-                {email.fields.name.label}
-              </Label>
-              <Input
-                id="form-name"
-                type="text"
-                required
-                disabled={status === "submitting"}
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="rounded-none border-hairline bg-background text-foreground focus-visible:ring-primary focus-visible:border-primary"
-                placeholder={email.fields.name.placeholder}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="form-email" className="label-eyebrow text-xs text-secondary">
-                {email.fields.email.label}
-              </Label>
-              <Input
-                id="form-email"
-                type="email"
-                required
-                disabled={status === "submitting"}
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="rounded-none border-hairline bg-background text-foreground focus-visible:ring-primary focus-visible:border-primary"
-                placeholder={email.fields.email.placeholder}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="form-message" className="label-eyebrow text-xs text-secondary">
-                {email.fields.message.label}
-              </Label>
-              <Textarea
-                id="form-message"
-                required
-                rows={4}
-                disabled={status === "submitting"}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="rounded-none border-hairline bg-background text-foreground focus-visible:ring-primary focus-visible:border-primary"
-                placeholder={email.fields.message.placeholder}
-              />
-            </div>
-
-            {status === "error" && (
-              <div className="text-sm text-destructive bg-destructive/10 px-3 py-2 border border-destructive/20">
-                {email.errorMessage}
-              </div>
-            )}
-
-            <div className="flex flex-col gap-3">
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="w-full bg-primary hover:bg-primary-variant text-primary-foreground py-3 font-medium transition-colors cursor-pointer label-eyebrow text-center disabled:opacity-50"
-              >
-                {status === "submitting" ? email.submittingLabel : email.submitLabel}
-              </button>
-              <a
-                href={email.href}
-                className="text-center text-xs text-secondary hover:text-primary transition-colors underline"
-              >
-                {email.directEmailPrefix} {email.value}
-              </a>
-            </div>
-          </form>
-        )}
-      </DialogContent>
-    </Dialog>
+        </div>
+      </div>
+      <ArrowUpRight
+        className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+        strokeWidth={1.5}
+      />
+    </button>
   );
 }
 
@@ -519,7 +387,7 @@ function Index() {
           </h2>
 
           <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-2" style={{ background: "#5a5a35" }}>
-            <ContactFormPopup email={contact.email} />
+            <ContactFormTrigger email={contact.email} />
             <a
               href={contact.linkedin.href}
               target="_blank"
@@ -544,8 +412,16 @@ function Index() {
             </a>
           </div>
 
+          <a
+            href={contact.email.href}
+            className="mt-6 inline-block text-xs hover:underline"
+            style={{ color: "#cac7b2" }}
+          >
+            Or email directly: {contact.email.value}
+          </a>
+
           <div
-            className="mt-20 flex flex-col items-start justify-between gap-4 border-t pt-8 label-eyebrow md:flex-row md:items-center"
+            className="mt-14 flex flex-col items-start justify-between gap-4 border-t pt-8 label-eyebrow md:flex-row md:items-center"
             style={{ borderColor: "#5a5a35", color: "#cac7b2" }}
           >
             <span>{contact.footer.copyright}</span>
