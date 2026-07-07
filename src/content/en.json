@@ -179,6 +179,13 @@
       "href": "mailto:flofkata@gmail.com",
       "tallyFormId": "1A5Drp"
     },
+    "bookCall": {
+      "label": "Book a call",
+      "value": "30 min · pick a time",
+      "heading": "Book a call with Maya Dimitrova",
+      "description": "Pick a slot that works for you — a 30-minute call to discuss opportunities, projects, or just to connect.",
+      "calLink": "REPLACE_WITH_CAL_LINK"
+    },
     "linkedin": {
       "label": "LinkedIn",
       "value": "linkedin.com/in/maya-dimitrova",

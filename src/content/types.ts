@@ -109,11 +109,20 @@ export interface ContactLinkedin {
   href: string;
 }
 
+export interface ContactBookCall {
+  label: string;
+  value: string;
+  heading: string;
+  description: string;
+  calLink: string;
+}
+
 export interface ContactContent {
   number: string;
   label: string;
   heading: string[];
   email: ContactEmail;
+  bookCall: ContactBookCall;
   linkedin: ContactLinkedin;
   footer: {
     copyright: string;

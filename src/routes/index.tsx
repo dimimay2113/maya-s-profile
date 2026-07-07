@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, Linkedin, ArrowUpRight, Download, Menu, X } from "lucide-react";
+import { Mail, Linkedin, Calendar, ArrowUpRight, Download, Menu, X } from "lucide-react";
 import headshotAsset from "@/assets/maya-headshot.png.asset.json";
 import content from "@/content";
 
@@ -386,8 +386,28 @@ function Index() {
             ))}
           </h2>
 
-          <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-2" style={{ background: "#5a5a35" }}>
+          <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-3" style={{ background: "#5a5a35" }}>
             <ContactFormTrigger email={contact.email} />
+            <Link
+              to="/book"
+              className="group flex items-center justify-between gap-6 bg-inverse-surface px-6 py-8 md:px-10"
+            >
+              <div className="flex items-center gap-5">
+                <Calendar className="h-6 w-6" strokeWidth={1.5} />
+                <div>
+                  <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
+                    {contact.bookCall.label}
+                  </div>
+                  <div className="mt-1 text-lg md:text-xl">
+                    {contact.bookCall.value}
+                  </div>
+                </div>
+              </div>
+              <ArrowUpRight
+                className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                strokeWidth={1.5}
+              />
+            </Link>
             <a
               href={contact.linkedin.href}
               target="_blank"
