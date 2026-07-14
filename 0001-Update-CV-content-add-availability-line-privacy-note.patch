@@ -1,0 +1,621 @@
+From 66c6231a6caaba30710a5f883539c9f11e88ec32 Mon Sep 17 00:00:00 2001
+From: Claude <assistant@anthropic.local>
+Date: Tue, 14 Jul 2026 09:05:15 +0000
+Subject: [PATCH 1/2] Update CV content; add availability line, privacy note,
+ dark mode; remove FAQ, hide empty Recommendations
+
+- Sync src/content/en.json with Maya's latest CV (tagline, expertise,
+  work history, education, certifications, contact email)
+- Add optional hero.availability and contact.privacyNote fields
+- Render 'Open to new opportunities' availability line in hero
+- Render privacy note near the contact/Tally area
+- Add a light/dark mode toggle (Sun/Moon button in header), defaulting
+  to system preference; replace the leftover default shadcn dark
+  palette in styles.css with a proper Atelier Expressive dark theme
+  (warm cream/olive/ink, inverted) instead of generic blue-gray
+- Remove the FAQ section entirely (nav item, content, JSX, and type)
+- Hide the empty Recommendations/testimonials section from nav and
+  page render until real quotes are added (content block kept intact
+  in en.json for easy re-enabling later)
+---
+ src/content/en.json  |  87 ++++++++++----------
+ src/content/types.ts |  14 +---
+ src/routes/index.tsx | 186 ++++++++++++++++++++++++-------------------
+ src/styles.css       |  52 +++++++-----
+ 4 files changed, 185 insertions(+), 154 deletions(-)
+
+diff --git a/src/content/en.json b/src/content/en.json
+index 40005b4..ef1cf65 100644
+--- a/src/content/en.json
++++ b/src/content/en.json
+@@ -8,22 +8,21 @@
+     { "href": "#narrative", "label": "Narrative" },
+     { "href": "#expertise", "label": "Expertise" },
+     { "href": "#history", "label": "History" },
+-    { "href": "#testimonials", "label": "Recommendations" },
+-    { "href": "#faq", "label": "FAQ" },
+     { "href": "#contact", "label": "Contact" }
+   ],
+   "hero": {
+     "name": ["Maya", "Dimitrova"],
+-    "tagline": "IT Project Officer, Luxembourg. Delivering programmes at the intersection of public institutions, higher education and telecommunications.",
++    "tagline": "Managing Information Systems specialist, Luxembourg. Coordinating information systems delivery across European public administration, US higher education, and telecom.",
+     "credentials": "MBA · MMIS · CSM®",
++    "availability": "Open to new opportunities",
+     "pills": [
+       "CSM®",
+       "ITIL 4 Foundation",
+       "ITIL 4 HVIT",
+-      "ITIL 4 DSV",
+       "Agile Scrum",
+       "Power BI",
+-      "SQL"
++      "SQL",
++      "AWS (in progress)"
+     ],
+     "photo": {
+       "alt": "Portrait of Maya Dimitrova",
+@@ -36,8 +35,8 @@
+     "label": "The Narrative",
+     "heading": "A project practice built across three worlds — European institutions, American academia and European telecom.",
+     "paragraphs": [
+-      "For the past two decades my work has moved between very different operating cultures. In each one, the constant has been the same discipline: translating strategy into delivery, and delivery into evidence. Whether inside a Directorate-General in Luxembourg, a research university in Atlanta or a national mobile operator in Sofia, the mandate has always been to keep complex programmes moving without losing their intent.",
+-      "I lead with quiet structure — clear sprint cadence, honest stakeholder conversations, budgets that behave, dashboards that are actually read. My education (MBA, MSc Management Information Systems, MSc Marketing) and certifications (CSM®, three ITIL 4 credentials) sit underneath that: a toolkit, not a badge collection."
++      "For two decades my work has moved between very different operating cultures. In each one, the constant has been the same discipline: translating strategy into delivery, and delivery into evidence. Whether inside the European Commission in Luxembourg, a research university in Atlanta or a national mobile operator in Sofia, the mandate has always been to keep complex programmes moving without losing their intent.",
++      "I lead with quiet structure — clear sprint cadence, honest stakeholder conversations, budgets that behave, dashboards that are actually read. My education (MBA, MSc Management Information Systems, MSc Marketing) and certifications (CSM®, ITIL 4 Foundation and Specialist credentials) sit underneath that: a toolkit, not a badge collection. I'm currently expanding that toolkit further — exploring vibe coding and AI-assisted development through Claude Academy, and working toward an AWS Cloud Fundamentals certification."
+     ]
+   },
+   "expertise": {
+@@ -49,10 +48,10 @@
+         "title": "Methodology",
+         "items": [
+           ["Agile Scrum", "Expert"],
+-          ["Kanban", "Advanced"],
+-          ["Sprint planning & retros", "Expert"],
++          ["Sprint planning & retrospectives", "Expert"],
++          ["Backlog management", "Expert"],
+           ["ITIL 4 service management", "Certified"],
+-          ["Waterfall for regulated delivery", "Advanced"]
++          ["Risk identification & mitigation", "Advanced"]
+         ]
+       },
+       {
+@@ -60,27 +59,29 @@
+         "items": [
+           ["Stakeholder management", "Expert"],
+           ["Cross-functional coordination", "Expert"],
+-          ["Budget & vendor control", "Advanced"],
+-          ["Team supervision", "Advanced"],
+-          ["Executive reporting", "Advanced"]
++          ["Budget & vendor/contract control", "Advanced"],
++          ["Team leadership", "Advanced"],
++          ["Conflict resolution", "Advanced"]
+         ]
+       },
+       {
+         "title": "Tools & Stack",
+         "items": [
+-          ["SQL", "Advanced"],
+-          ["SDMX", "Advanced"],
+-          ["Atlassian Suite (Jira, Confluence)", "Expert"],
+-          ["MS Project & MS 365", "Advanced"]
++          ["SQL / PL-SQL / PostgreSQL", "Advanced"],
++          ["Power BI & Power Query", "Advanced"],
++          ["SDMX & data standards", "Advanced"],
++          ["Git / GitHub, CI/CD", "Advanced"],
++          ["Python", "Intermediate"],
++          ["AWS Cloud", "In progress"]
+         ]
+       },
+       {
+         "title": "Languages",
+         "items": [
+-          ["English", "Fluent"],
++          ["English", "C2"],
+           ["Bulgarian", "Native"],
+-          ["Russian", "Intermediate"],
+-          ["Spanish", "Beginner"]
++          ["Spanish", "B1"],
++          ["French", "A1"]
+         ]
+       }
+     ]
+@@ -94,12 +95,12 @@
+         "org": "European Commission",
+         "place": "Luxembourg",
+         "role": "IT Project Officer",
+-        "dates": "2021 — Present",
++        "dates": "2021 — 2026",
+         "bullets": [
+-          "Coordinate delivery of institutional statistical IT projects, aligning business owners, developers and external contractors against multi-year roadmaps.",
+-          "Introduced Agile ceremonies and Power BI reporting that gave management a shared, near-real-time view of scope, risk and burn."
++          "Led end-to-end planning, coordination and delivery of information systems critical to the production of European Statistics, across Eurostat, Member States and partner organisations.",
++          "Ran agile sprint cycles, backlog prioritisation and release planning; oversaw CI/CD DevOps deployments and cloud migration projects while ensuring compliance with SDMX quality standards."
+         ],
+-        "tags": ["Agile", "SDMX", "Vendor management"]
++        "tags": ["Agile", "SDMX", "DevOps & Cloud", "Vendor management"]
+       },
+       {
+         "org": "Emory University",
+@@ -107,8 +108,8 @@
+         "role": "Associate Director, Prospect Management",
+         "dates": "2019 — 2021",
+         "bullets": [
+-          "Led a team responsible for the prospect pipeline underpinning a multi-billion-dollar comprehensive campaign.",
+-          "Rebuilt the operating model around SQL-driven segmentation and clear service SLAs with front-line fundraisers."
++          "Led business analysis and project management initiatives to enhance prospect management processes, employing strategic data insights and stakeholder collaboration.",
++          "Developed BI-driven dashboards and reports, translating complex data needs into structured project plans aligned with strategic objectives."
+         ],
+         "tags": ["Team leadership", "SQL", "Power BI", "Data operations"]
+       },
+@@ -118,8 +119,8 @@
+         "role": "Prospect Management Analyst",
+         "dates": "2016 — 2018",
+         "bullets": [
+-          "Designed analytical products that turned donor and alumni data into actionable prospect portfolios.",
+-          "Partnered with development officers to translate data findings into campaign strategy."
++          "Designed analytical products that turned donor and alumni data into actionable prospect portfolios, performing database mining in Access, PL/SQL, PostgreSQL and Advizor.",
++          "Partnered with development officers and IT to build dashboard architecture, auditing data integrity and translating data findings into campaign strategy."
+         ],
+         "tags": ["Analytics", "Power BI", "Reporting", "Higher education"]
+       },
+@@ -129,10 +130,10 @@
+         "role": "Team Leader / Supervisor",
+         "dates": "2005 — 2012",
+         "bullets": [
+-          "Supervised a customer-facing operations team for a leading national mobile operator, owning KPIs, scheduling and quality.",
+-          "Coached team members into senior positions and rolled out process improvements adopted across sister teams."
++          "Led a team of 15 customer service agents — scheduling, SLA tracking and regular performance feedback feeding into wider company goals.",
++          "Played a hands-on role in a company-wide CRM implementation: gathered requirements, mapped data, ran UAT and reported findings to stakeholders."
+         ],
+-        "tags": ["Operations", "Telecom", "People management"]
++        "tags": ["Operations", "Telecom", "People management", "CRM"]
+       }
+     ]
+   },
+@@ -147,10 +148,10 @@
+     "label": "Academic",
+     "heading": "Degrees",
+     "degrees": [
+-      ["MSc Management Information Systems", "MMIS"],
+-      ["Master of Business Administration", "MBA"],
+-      ["MSc Marketing", "Postgraduate"],
+-      ["BSc Marketing", "Undergraduate"]
++      ["MSc Management Information Systems — Georgia College and State University (2019–2020)", "MMIS"],
++      ["Master of Business Administration — Georgia College and State University (2012–2014)", "MBA"],
++      ["MSc Marketing — University of National and World Economy, Bulgaria (2005–2006)", "Postgraduate"],
++      ["BSc Marketing — University of National and World Economy, Bulgaria (2001–2004)", "Undergraduate"]
+     ]
+   },
+   "credentials": {
+@@ -161,22 +162,19 @@
+       ["Certified Scrum Master", "CSM®"],
+       ["ITIL 4 Foundation", "Foundation"],
+       ["ITIL 4 Specialist", "High-Velocity IT"],
+-      ["ITIL 4 Specialist", "Drive Stakeholder Value"]
++      ["AWS Cloud Fundamentals", "Ongoing"],
++      ["Claude Academy — AI-assisted development & vibe coding", "Ongoing"],
++      ["EITCA/AI Artificial Intelligence Academy", "Ongoing"]
+     ]
+   },
+-  "faq": {
+-    "number": "07",
+-    "label": "FAQ",
+-    "items": []
+-  },
+   "contact": {
+-    "number": "08",
++    "number": "07",
+     "label": "Contact",
+     "heading": ["Let's", "connect."],
+     "email": {
+       "label": "Email",
+-      "value": "flofkata@gmail.com",
+-      "href": "mailto:flofkata@gmail.com",
++      "value": "mayaddimitrova@gmail.com",
++      "href": "mailto:mayaddimitrova@gmail.com",
+       "tallyFormId": "1A5Drp"
+     },
+     "bookCall": {
+@@ -191,6 +189,7 @@
+       "value": "linkedin.com/in/maya-dimitrova",
+       "href": "https://www.linkedin.com/in/maya-dimitrova"
+     },
++    "privacyNote": "Your message is sent securely via Tally and only used to get back to you — nothing is stored or shared beyond that.",
+     "footer": {
+       "copyright": "© MMXXVI Maya Dimitrova — Luxembourg",
+       "tagline": "Designed & set in Geist"
+diff --git a/src/content/types.ts b/src/content/types.ts
+index aa7c3a5..8182f2c 100644
+--- a/src/content/types.ts
++++ b/src/content/types.ts
+@@ -13,6 +13,7 @@ export interface HeroContent {
+   name: string[];
+   tagline: string;
+   credentials: string;
++  availability?: string;
+   pills: string[];
+   photo: {
+     alt: string;
+@@ -85,17 +86,6 @@ export interface CredentialsContent {
+   items: [string, string][];
+ }
+ 
+-export interface FaqItem {
+-  question: string;
+-  answer: string;
+-}
+-
+-export interface FaqContent {
+-  number: string;
+-  label: string;
+-  items: FaqItem[];
+-}
+-
+ export interface ContactEmail {
+   label: string;
+   value: string;
+@@ -124,6 +114,7 @@ export interface ContactContent {
+   email: ContactEmail;
+   bookCall: ContactBookCall;
+   linkedin: ContactLinkedin;
++  privacyNote?: string;
+   footer: {
+     copyright: string;
+     tagline: string;
+@@ -140,6 +131,5 @@ export interface SiteContent {
+   testimonials: TestimonialsContent;
+   academic: AcademicContent;
+   credentials: CredentialsContent;
+-  faq: FaqContent;
+   contact: ContactContent;
+ }
+diff --git a/src/routes/index.tsx b/src/routes/index.tsx
+index 202779e..7b7de26 100644
+--- a/src/routes/index.tsx
++++ b/src/routes/index.tsx
+@@ -1,6 +1,6 @@
+ import { createFileRoute, Link } from "@tanstack/react-router";
+-import { useState } from "react";
+-import { Mail, Linkedin, Calendar, ArrowUpRight, Download, Menu, X } from "lucide-react";
++import { useEffect, useState } from "react";
++import { Mail, Linkedin, Calendar, ArrowUpRight, Download, Menu, X, Sun, Moon } from "lucide-react";
+ import headshotAsset from "@/assets/maya-headshot.png.asset.json";
+ import content from "@/content";
+ 
+@@ -42,9 +42,7 @@ function ContactFormTrigger({ email }: { email: typeof content.contact.email })
+           <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
+             {email.label}
+           </div>
+-          <div className="mt-1 text-lg md:text-xl text-inverse-foreground">
+-            {email.value}
+-          </div>
++          <div className="mt-1 text-lg md:text-xl text-inverse-foreground">{email.value}</div>
+         </div>
+       </div>
+       <ArrowUpRight
+@@ -57,8 +55,40 @@ function ContactFormTrigger({ email }: { email: typeof content.contact.email })
+ 
+ function Index() {
+   const [open, setOpen] = useState(false);
+-  const { meta, nav, hero, narrative, expertise, history, testimonials, academic, credentials, faq, contact } =
+-    content;
++  const [isDark, setIsDark] = useState(false);
++  const {
++    meta,
++    nav,
++    hero,
++    narrative,
++    expertise,
++    history,
++    testimonials,
++    academic,
++    credentials,
++    contact,
++  } = content;
++
++  useEffect(() => {
++    const prefersDark =
++      typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches;
++    setIsDark(!!prefersDark);
++  }, []);
++
++  useEffect(() => {
++    document.documentElement.classList.toggle("dark", isDark);
++  }, [isDark]);
++
++  const themeToggle = (
++    <button
++      type="button"
++      aria-label="Toggle dark mode"
++      onClick={() => setIsDark((v) => !v)}
++      className="border border-hairline p-2 text-foreground hover:border-primary hover:text-primary"
++    >
++      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
++    </button>
++  );
+ 
+   return (
+     <div className="min-h-screen bg-background text-foreground">
+@@ -74,6 +104,7 @@ function Index() {
+                 {n.label}
+               </a>
+             ))}
++            {themeToggle}
+             <a
+               href="#contact"
+               className="label-eyebrow inline-flex items-center gap-2 bg-primary px-4 py-2.5 text-primary-foreground hover:bg-primary-variant"
+@@ -82,13 +113,16 @@ function Index() {
+               {meta.downloadCvLabel}
+             </a>
+           </div>
+-          <button
+-            aria-label="Menu"
+-            className="md:hidden border border-hairline p-2"
+-            onClick={() => setOpen((o) => !o)}
+-          >
+-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+-          </button>
++          <div className="flex items-center gap-2 md:hidden">
++            {themeToggle}
++            <button
++              aria-label="Menu"
++              className="border border-hairline p-2"
++              onClick={() => setOpen((o) => !o)}
++            >
++              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
++            </button>
++          </div>
+         </nav>
+         {open && (
+           <div className="border-t border-hairline bg-background md:hidden">
+@@ -134,6 +168,15 @@ function Index() {
+               </h1>
+               <p className="mt-6 max-w-md text-base text-secondary md:text-lg">{hero.tagline}</p>
+               <p className="mt-2 label-eyebrow text-primary">{hero.credentials}</p>
++              {hero.availability && (
++                <div className="mt-5 label-eyebrow inline-flex items-center gap-2 text-secondary">
++                  <span
++                    className="inline-block h-1.5 w-1.5 rounded-full bg-primary"
++                    aria-hidden="true"
++                  />
++                  {hero.availability}
++                </div>
++              )}
+             </div>
+ 
+             <div className="mt-12 flex flex-wrap gap-2">
+@@ -198,12 +241,8 @@ function Index() {
+                       key={name}
+                       className="flex items-center justify-between gap-4 border-b border-outline-variant py-4 last:border-b-0"
+                     >
+-                      <span className="text-[15px] text-foreground md:text-base">
+-                        {name}
+-                      </span>
+-                      <span className="label-eyebrow shrink-0 text-primary">
+-                        {level}
+-                      </span>
++                      <span className="text-[15px] text-foreground md:text-base">{name}</span>
++                      <span className="label-eyebrow shrink-0 text-primary">{level}</span>
+                     </li>
+                   ))}
+                 </ul>
+@@ -263,41 +302,44 @@ function Index() {
+         </div>
+       </section>
+ 
+-      {/* Testimonials / Recommendations */}
+-      <section id="testimonials" className="border-b border-hairline bg-surface-2">
+-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
+-          <SectionLabel number={testimonials.number} label={testimonials.label} />
+-          {testimonials.items.length > 0 && (
+-            <>
+-              <h2 className="mt-10 max-w-3xl text-[24px] font-medium leading-tight tracking-tight text-primary md:text-[32px] lg:text-[40px]">
+-                {testimonials.heading}
+-              </h2>
++      {/* Testimonials / Recommendations — hidden entirely until there's a real quote to show */}
++      {testimonials.items.length > 0 && (
++        <section id="testimonials" className="border-b border-hairline bg-surface-2">
++          <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
++            <SectionLabel number={testimonials.number} label={testimonials.label} />
++            <h2 className="mt-10 max-w-3xl text-[24px] font-medium leading-tight tracking-tight text-primary md:text-[32px] lg:text-[40px]">
++              {testimonials.heading}
++            </h2>
+ 
+-              <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
+-                {testimonials.items.map((rec, i) => (
+-                  <div key={i} className="flex flex-col justify-between border border-hairline bg-surface-1 p-8 rounded-none">
+-                    <div>
+-                      <span className="text-[64px] font-serif leading-none text-primary/20 select-none block h-6 -mt-4 -ml-2">“</span>
+-                      <p className="text-[15px] leading-[1.6] text-foreground italic relative z-10">
+-                        {rec.quote}
+-                      </p>
+-                    </div>
+-                    <div className="mt-8 pt-6 border-t border-outline-variant">
+-                      <div className="font-medium text-base text-foreground">{rec.author}</div>
+-                      <div className="text-xs text-primary mt-1">{rec.role}</div>
+-                      <div className="text-xs text-secondary mt-0.5">{rec.org}</div>
+-                      <div className="mt-3 inline-flex items-center gap-1.5 label-eyebrow text-[10px] text-secondary bg-surface-2 border border-hairline px-2 py-0.5">
+-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+-                        {rec.relationship}
+-                      </div>
++            <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
++              {testimonials.items.map((rec, i) => (
++                <div
++                  key={i}
++                  className="flex flex-col justify-between border border-hairline bg-surface-1 p-8 rounded-none"
++                >
++                  <div>
++                    <span className="text-[64px] font-serif leading-none text-primary/20 select-none block h-6 -mt-4 -ml-2">
++                      “
++                    </span>
++                    <p className="text-[15px] leading-[1.6] text-foreground italic relative z-10">
++                      {rec.quote}
++                    </p>
++                  </div>
++                  <div className="mt-8 pt-6 border-t border-outline-variant">
++                    <div className="font-medium text-base text-foreground">{rec.author}</div>
++                    <div className="text-xs text-primary mt-1">{rec.role}</div>
++                    <div className="text-xs text-secondary mt-0.5">{rec.org}</div>
++                    <div className="mt-3 inline-flex items-center gap-1.5 label-eyebrow text-[10px] text-secondary bg-surface-2 border border-hairline px-2 py-0.5">
++                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
++                      {rec.relationship}
+                     </div>
+                   </div>
+-                ))}
+-              </div>
+-            </>
+-          )}
+-        </div>
+-      </section>
++                </div>
++              ))}
++            </div>
++          </div>
++        </section>
++      )}
+ 
+       {/* Education & Credentials */}
+       <section id="credentials" className="border-b border-hairline">
+@@ -347,27 +389,6 @@ function Index() {
+         </div>
+       </section>
+ 
+-      {/* FAQ */}
+-      <section id="faq" className="border-b border-hairline">
+-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
+-          <SectionLabel number={faq.number} label={faq.label} />
+-          {faq.items.length > 0 && (
+-            <div className="mt-14 flex flex-col">
+-              {faq.items.map((item, i) => (
+-                <div key={i} className="border-t border-hairline py-8 last:border-b">
+-                  <h3 className="text-[18px] font-medium text-foreground md:text-xl">
+-                    {item.question}
+-                  </h3>
+-                  <p className="mt-3 max-w-3xl text-[15px] leading-[1.6] text-secondary md:text-base">
+-                    {item.answer}
+-                  </p>
+-                </div>
+-              ))}
+-            </div>
+-          )}
+-        </div>
+-      </section>
+-
+       {/* Contact */}
+       <section id="contact" className="bg-inverse-surface text-inverse-foreground">
+         <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-36">
+@@ -386,7 +407,10 @@ function Index() {
+             ))}
+           </h2>
+ 
+-          <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-3" style={{ background: "#5a5a35" }}>
++          <div
++            className="mt-16 grid grid-cols-1 gap-px md:grid-cols-3"
++            style={{ background: "#5a5a35" }}
++          >
+             <ContactFormTrigger email={contact.email} />
+             <Link
+               to="/book"
+@@ -398,9 +422,7 @@ function Index() {
+                   <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
+                     {contact.bookCall.label}
+                   </div>
+-                  <div className="mt-1 text-lg md:text-xl">
+-                    {contact.bookCall.value}
+-                  </div>
++                  <div className="mt-1 text-lg md:text-xl">{contact.bookCall.value}</div>
+                 </div>
+               </div>
+               <ArrowUpRight
+@@ -420,9 +442,7 @@ function Index() {
+                   <div className="label-eyebrow" style={{ color: "#cac7b2" }}>
+                     {contact.linkedin.label}
+                   </div>
+-                  <div className="mt-1 text-lg md:text-xl">
+-                    {contact.linkedin.value}
+-                  </div>
++                  <div className="mt-1 text-lg md:text-xl">{contact.linkedin.value}</div>
+                 </div>
+               </div>
+               <ArrowUpRight
+@@ -440,6 +460,12 @@ function Index() {
+             Or email directly: {contact.email.value}
+           </a>
+ 
++          {contact.privacyNote && (
++            <p className="mt-4 max-w-xl text-xs leading-relaxed" style={{ color: "#8a8968" }}>
++              {contact.privacyNote}
++            </p>
++          )}
++
+           <div
+             className="mt-14 flex flex-col items-start justify-between gap-4 border-t pt-8 label-eyebrow md:flex-row md:items-center"
+             style={{ borderColor: "#5a5a35", color: "#cac7b2" }}
+diff --git a/src/styles.css b/src/styles.css
+index acf3fef..5ad4443 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -119,25 +119,41 @@
+ }
+ 
+ .dark {
+-  --background: oklch(0.129 0.042 264.695);
+-  --foreground: oklch(0.984 0.003 247.858);
+-  --card: oklch(0.208 0.042 265.755);
+-  --card-foreground: oklch(0.984 0.003 247.858);
+-  --popover: oklch(0.208 0.042 265.755);
+-  --popover-foreground: oklch(0.984 0.003 247.858);
+-  --primary: oklch(0.929 0.013 255.508);
+-  --primary-foreground: oklch(0.208 0.042 265.755);
+-  --secondary: oklch(0.279 0.041 260.031);
+-  --secondary-foreground: oklch(0.984 0.003 247.858);
+-  --muted: oklch(0.279 0.041 260.031);
+-  --muted-foreground: oklch(0.704 0.04 256.788);
+-  --accent: oklch(0.279 0.041 260.031);
+-  --accent-foreground: oklch(0.984 0.003 247.858);
++  /* Atelier Expressive — dark counterpart. Same warm cream/olive/ink hue
++     family as the light palette, inverted for a dark background rather
++     than the generic shadcn blue-gray defaults. */
++  --background: #14140a;
++  --foreground: #f5f3c8;
++  --card: #1d1d0e;
++  --card-foreground: #f5f3c8;
++  --popover: #1d1d0e;
++  --popover-foreground: #f5f3c8;
++  --primary: #c9c945;
++  --primary-variant: #e3e35f;
++  --primary-foreground: #14140a;
++  --secondary: #9aa5be;
++  --secondary-variant: #b3bcd0;
++  --secondary-foreground: #14140a;
++  --muted: #23230f;
++  --muted-foreground: #a8a785;
++  --accent: #2a2a12;
++  --accent-foreground: #f5f3c8;
+   --destructive: oklch(0.704 0.191 22.216);
+-  --destructive-foreground: oklch(0.984 0.003 247.858);
+-  --border: oklch(1 0 0 / 10%);
+-  --input: oklch(1 0 0 / 15%);
+-  --ring: oklch(0.551 0.027 264.364);
++  --destructive-foreground: #f5f3c8;
++  --border: #4a4a2e;
++  --input: #4a4a2e;
++  --ring: #c9c945;
++  --hairline: #4a4a2e;
++  --outline-variant: #3a3a25;
++  --surface-1: #1d1d0e;
++  --surface-2: #23230f;
++  --surface-3: #2a2a12;
++  --surface-4: #323215;
++  /* The contact/credentials "inverse" block is a deliberate contrast panel
++     against the page background — swap it to a light cream panel in dark
++     mode so it still reads as a highlight instead of blending in. */
++  --inverse-surface: #f5f3c8;
++  --inverse-foreground: #14140a;
+   --chart-1: oklch(0.488 0.243 264.376);
+   --chart-2: oklch(0.696 0.17 162.48);
+   --chart-3: oklch(0.769 0.188 70.08);
+-- 
+2.43.0
+
